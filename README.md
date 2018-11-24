@@ -1,0 +1,1 @@
+GCC built to target x86_64-elf. Shamelessly taken from https://github.com/beevik/docker.
