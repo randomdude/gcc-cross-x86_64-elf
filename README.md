@@ -1,13 +1,8 @@
-This code was shamelessly taken from https://github.com/beevik/docker - I've changed only about two words in the source. I've changed some deps to come over via HTTPS instead of FTP but that's about it. Thanks to Brett Vickers for the original work.
+This is a fork from randomdude/gcc-cross-x86_64-elf that contains the update dependencies to build an x86_64-elf-gcc toolchain. 
+Here you can find the docker repo: https://hub.docker.com/r/maxbalej/gcc-cross-x86_64-elf-lt
 
-Anyway, this will build an x86_64-elf-gcc toolchain. I use it to build code which runs without an OS present (ie, GRUB loads it).
-
-The resulting image is of an Debian stretch image with the built toolchain installed and ready to go.
-
-To use it, you can simply build and run this container, and then 'docker exec gcc ...' to compile.
-Or, you can build your project in a container based on this one. For an example, see the 'btstestbench' project, which does this:
 ```
-FROM randomdude/gcc-cross-x86_64-elf
+FROM maxbalej/gcc-cross-x86_64-elf-lt:latest
 
 RUN apt-get update 
 RUN apt-get upgrade -y
@@ -21,6 +16,6 @@ ENTRYPOINT build.sh # which invokes gcc/make for your own code
 
 There's a docker image on the docker hub, so if you use that as a base, there's no need to build it yourself.
 
-> docker pull randomdude/gcc-cross-x86_64-elf
+> docker pull maxbalej/gcc-cross-x86_64-elf-lt
 
 
