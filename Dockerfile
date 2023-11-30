@@ -1,16 +1,16 @@
 # gcc 8.2.0 x86_64-elf cross-compiler container
 
-FROM debian:stretch
+FROM debian:latest
 LABEL maintainer "Brett Vickers <github.com/beevik>"
 
-ARG BINUTILS_VERSION=2.31.1
-ARG GCC_VERSION=8.2.0
+ARG BINUTILS_VERSION=2.41
+ARG GCC_VERSION=13.2.0
 
 # Install cross-compiler prerequisites
 RUN set -x \
 	&& apt-get update \
 	&& apt-get install -y wget gcc libgmp3-dev libmpfr-dev libisl-dev \
-		libcloog-isl-dev libmpc-dev texinfo bison flex make bzip2 patch \
+		libmpc-dev texinfo bison flex make bzip2 patch \
 		build-essential
 
 # Pull binutils and gcc source code
@@ -37,7 +37,7 @@ COPY files/gcc/config.gcc.patch /usr/local/src/gcc-${GCC_VERSION}/gcc/
 # Build and install binutils and the cross-compiler
 RUN set -x \
 	&& cd /usr/local/src \
-	&& ./build-binutils.sh ${BINUTILS_VERSION} \
-	&& ./build-gcc.sh ${GCC_VERSION}
+	&& bash build-binutils.sh ${BINUTILS_VERSION} \
+	&& bash build-gcc.sh ${GCC_VERSION}
 
 CMD ["/bin/bash"]
